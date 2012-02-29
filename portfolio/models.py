@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 class Company(models.Model):
-    name= models.CharField(_("name"),max_length=100)
+    title= models.CharField(_("title"),max_length=100)
     slug=models.SlugField(max_length=50, unique=True)
     url = models.CharField(max_length=150, blank=True)
     location=models.CharField(_("location"),max_length=100,blank=True)
@@ -16,7 +16,7 @@ class Company(models.Model):
 
     
 class Project(models.Model):
-    name = models.CharField(_('name'),max_length=200)
+    title = models.CharField(_('title'),max_length=200)
     slug = models.SlugField(max_length=50, unique=True)
     url = models.URLField(_('url'),blank=True, null=True)
     short_description = models.TextField(_('summary'))
@@ -25,7 +25,7 @@ class Project(models.Model):
     end_date = models.DateField(blank=True, null=True)
     company=models.ForeignKey(Company,blank=True,null=True)
     category = models.ForeignKey('Category',blank=True,null=True)
-    skills = models.ManyToManyField('Skill', blank=True,null=True)
+    features = models.ManyToManyField('Feature', blank=True,null=True)
     
     class Meta:
         ordering = ['-start_date', '-end_date', ]
@@ -40,56 +40,59 @@ class Project(models.Model):
 class ProjectImage(models.Model):
     project = models.ForeignKey('Project',related_name="project_images")
     image_path = models.ImageField(upload_to="project_image/%Y/%m/%d")
+    slug = models.SlugField(_('slug'),max_length=50,blank=True)
     caption=models.CharField(max_length=120,blank=True)
     timestamp = models.DateTimeField(default=datetime.now, editable=False)
     url = models.CharField(blank=True,max_length=150)
+    
    
 
     def __unicode__(self):
         if self.pk is not None:
-            return "{{ %d }}" % self.pk
+            return u"{{ %d }} %s" % (self.pk)
         else:
             return "deleted image"
             
 class ProjectFile(models.Model):
     project = models.ForeignKey('Project',related_name='files')
+    slug=models.SlugField(_('slug'),max_length=50,blank=True)
+    caption=models.CharField(_('caption'),max_length=120,blank=True)
     file_path = models.FileField(upload_to="project_file/%Y/%m/%d")
-    caption=models.CharField(max_length=120,blank=True)
     timestamp = models.DateTimeField(default=datetime.now, editable=False)
 
     def __unicode__(self):
         if self.pk is not None:
-            return "{{ %d }}" % self.pk
+             return u"{{ %d }} %s" % (self.pk,self.title)
         else:
             return "deleted file"
 
     def get_absolute_url(self):
         return self.file.url        
 
-class Skill(models.Model):
-    name = models.CharField(max_length=50)
+class Feature(models.Model):
+    title = models.CharField(_('title'),max_length=200)
     slug = models.SlugField(max_length=50, unique=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['title']
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio.views.skill_detail', (), {'slug': str(self.slug), })
+        return ('portfolio.views.feature_detail', (), {'slug': self.slug, })
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=50, unique=True)
+    title = models.CharField(_('title'),max_length=200)
+    slug = models.SlugField(_('slug'),max_length=50, unique=True)
     position = models.PositiveIntegerField()
 
     class Meta:
         ordering = ["position"]
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
     @models.permalink
     def get_absolute_url(self):
@@ -101,9 +104,9 @@ class Reccomendation(models.Model):
     last_name=models.CharField(_("last_name"),max_length=60)
     position=models.CharField(_('position'),max_length=100)
     projects=models.ForeignKey(Project,related_name="recommendations")
-    slug = models.SlugField(max_length=50, unique=True)
+    slug = models.SlugField(_('slug'),max_length=50, unique=True)
     quotation=models.TextField()
-    date=models.DateField(blank=True)
+    date=models.DateField(blank=True,null=True)
     def __unicode__(self):
         return u" ".join(self.quotation.split()[:5])  
 

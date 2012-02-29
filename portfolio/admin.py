@@ -21,13 +21,13 @@ class ProjectAdmin(admin.ModelAdmin):
         ]
 
 class CompanyAdmin(admin.ModelAdmin):
-    prepopulated_fields={"slug": ("name",)}
+    prepopulated_fields={"slug": ("title",)}
 
 class SkillAdmin(admin.ModelAdmin):
-    prepopulated_fields={"slug": ("name",)}    
+    prepopulated_fields={"slug": ("title",)}    
     
 class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields={"slug": ("name",)}
+    prepopulated_fields={"slug": ("title",)}
           
 admin.site.register(Project,ProjectAdmin)
 admin.site.register(Skill,SkillAdmin)
