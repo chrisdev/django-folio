@@ -1,12 +1,8 @@
-
 django-portfolio
 ================
 
-django-portfolio is a reusable Django app for displaying
-your personal and professional projects in style.
-
-Is available at its `Git repository
-<http://github.com/howiworkdaily/django-testimonials/tree/django-testimonials>`_.
+django-folio is a reusable Django app for displaying. It was forked from https://github.com/howiworkdaily/django-portfolio
+Had to change the name since there was another project on pypi with the same name but with a very different focus.
 
 
 manifest
