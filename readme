@@ -1,4 +1,4 @@
-django-portfolio
+django-folio
 ================
 
 django-folio is a reusable Django app for show information about work projects.  Projects have attributes such as the 
