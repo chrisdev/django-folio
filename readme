@@ -1,8 +1,12 @@
 django-portfolio
 ================
 
-django-folio is a reusable Django app for displaying. It was forked from https://github.com/howiworkdaily/django-portfolio
-Had to change the name since there was another project on pypi with the same name but with a very different focus.
+django-folio is a reusable Django app for show information about work projects.  Projects have attributes such as the 
+company it was done for, url etc. You can associte images, files (for e.g ehite pager) , videos as well as recommendations with projects as well as categorize (wbsite,logo,illustration) as well as identify 
+particular features of a project e.g (skills e.g Grapphics Design,Django or attribute of a project (
+
+This project was forked from https://github.com/howiworkdaily/django-portfolio however, we 
+decided change the name since there was another project on pypi with the same name but with a very different focus.
 
 
 manifest
