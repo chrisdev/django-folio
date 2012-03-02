@@ -11,7 +11,7 @@ class Company(models.Model):
     country=models.CharField(_('country'),max_length=50,blank=True)
     
     def __unicode__(self):
-        return self.name
+        return self.title
 
 
     
@@ -31,7 +31,7 @@ class Project(models.Model):
         ordering = ['-start_date', '-end_date', ]
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
     @models.permalink
     def get_absolute_url(self):
@@ -99,7 +99,7 @@ class Category(models.Model):
         return ('portfolio.views.category_detail', (), {'slug': str(self.slug), })
 
     
-class Reccomendation(models.Model):
+class Recommendation(models.Model):
     first_name=models.CharField(_("first_name"),max_length=60)
     last_name=models.CharField(_("last_name"),max_length=60)
     position=models.CharField(_('position'),max_length=100)

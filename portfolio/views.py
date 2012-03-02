@@ -1,10 +1,10 @@
 from django.views.generic.list_detail import object_detail, object_list
-from models import Project, Skill, Category
+from models import Project, Feature, Category
 
 def project_context():
     return {
         'category_list': Category.objects.all(),
-        'skill_list': Skill.objects.all(),
+        'feature_list': Feature.objects.all(),
         }
 
 def project_detail(request, slug, template_name='portfolio/project_detail.html', extra_context={}):
@@ -41,7 +41,7 @@ def category_list(request, template_name='portfolio/category_list.html', extra_c
         queryset = Category.objects.all(),
         )
 
-def feature_detail(request, slug, template_name='portfolio/skill_detail.html', extra_context={}):
+def feature_detail(request, slug, template_name='portfolio/feature_detail.html', extra_context={}):
     extra = project_context()
     extra.update(extra_context)
     return object_detail(

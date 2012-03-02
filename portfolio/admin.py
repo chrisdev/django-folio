@@ -1,8 +1,8 @@
 from django.contrib import admin
-from portfolio.models import Project,Company,Skill,Category,ProjectFile,ProjectImage,Reccomendation
+from portfolio.models import Project,Company,Feature,Category,ProjectFile,ProjectImage,Recommendation
 
 class ReccomendationInline(admin.TabularInline):
-    model=Reccomendation
+    model=Recommendation
 
 class ImageInline(admin.TabularInline):
     model=ProjectImage
@@ -12,7 +12,7 @@ class FileInline(admin.TabularInline):
 
   
 class ProjectAdmin(admin.ModelAdmin):
-    prepopulated_fields={"slug": ("name",)}
+    prepopulated_fields={"slug": ("title",)}
     inlines = [
            ImageInline,
            ReccomendationInline,
@@ -23,18 +23,18 @@ class ProjectAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     prepopulated_fields={"slug": ("title",)}
 
-class SkillAdmin(admin.ModelAdmin):
+class FeatureAdmin(admin.ModelAdmin):
     prepopulated_fields={"slug": ("title",)}    
     
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields={"slug": ("title",)}
           
 admin.site.register(Project,ProjectAdmin)
-admin.site.register(Skill,SkillAdmin)
+admin.site.register(Feature,FeatureAdmin)
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(ProjectFile)
 admin.site.register(ProjectImage)
 admin.site.register(Company,CompanyAdmin)
-admin.site.register(Reccomendation)
+admin.site.register(Recommendation)
 
 
