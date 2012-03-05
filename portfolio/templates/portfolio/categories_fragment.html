@@ -1,10 +1,12 @@
-<ul id="categories">
+<div class="six columns">
+<h5>Category</h5>
+<ul>
   {% for category in category_list %}
   {% ifequal category.pk selected.pk %}
   <li class="selected"><a href="{% url category_detail category.slug %}">{{ category }}</a></li>
   {% else %}
   <li><a href="{% url category_detail category.slug %}">{{ category }}</a></li>
   {% endifequal %}
-  
   {% endfor %}
 </ul>
+</div>

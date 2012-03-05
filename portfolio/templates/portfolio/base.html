@@ -1,9 +1,29 @@
-<html>
-<head>
-<title>{% block title %}Django Portfolio{% endblock %}</title>
-<link type="text/css" rel="stylesheet" href="/media/portfolio.css" />
-</head>
-<body>
-{% block content %}{% endblock %}
-</body>
-</html>
+{% extends "site_base.html" %}
+{% block head_title %}Our Work{% endblock %}
+{% block body_id %}what-we-do{% endblock %}
+{% block bread_crumbs %}
+<ul class="breadcrumbs">
+	<li><a href="/">Home</a></li>
+	<li class="current"><a href="#">Portfoilio</a></li>
+</ul>
+{% endblock %}
+{% block page_title %}
+<div class="header">
+ <h2>Our Portfolio</h2>
+ <h4 class="subheader">{% block project_title %}{% endblock %}</h4>
+ {% block header_text %}{% endblock %}
+</div>
+{% endblock %}
+{% block article_wrapper %}
+	  <article class="eight columns">
+	    {% block article %} {% endblock %}
+	  </article>
+{% endblock %}
+{% block aside_wrapper %}
+<aside class="four columns">
+<div class="sidebar">
+{% block aside %} {% endblock %}
+</div>
+</aside>
+{% endblock %}
+

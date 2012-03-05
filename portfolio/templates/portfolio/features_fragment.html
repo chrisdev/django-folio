@@ -1,0 +1,12 @@
+<div class="six columns">
+<h5>Features</h5>
+<ul>
+  {% for feature in feature_list %}
+  {% ifequal feature.pk selected.pk %}
+  <li class="selected"><a href="{% url feature_detail feature.slug %}">{{ feature}}</a></li>
+  {% else %}
+  <li><a href="{% url feature_detail feature.slug %}">{{ feature }}</a></li>
+  {% endifequal %}
+  {% endfor %}
+</ul>
+</div>

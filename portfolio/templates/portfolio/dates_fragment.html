@@ -1,11 +1,16 @@
+
 {% if project.start_date and project.end_date %}
-<p class="dates">{{ project.start_date|date:"m/d/y" }} - {{ project.end_date|date:"m/d/y" }}</p>
+<p class="vevent">
+    Duration
+    <abbr class="dtstart" title="{{project.start_date}}">{{project.start_date|date:"m/d/y" }}</abbr>&ndash;
+    <abbr class="dtend" title="{{project.start_date}}">{{project.end_date_date|date:"m/d/y" }}</abbr>
+</p>
 {% else %}
-	{% if project.start_date %}
-	<p class="dates">{{ project.start_date|date:"m/d/y" }} - Present</p>
-	{% else %}
-	{% if project.end_date %}
-	<p class="dates">{{ project.end_date|date:"m/d/y" }}</p>
-{% endif %}
-{% endif %}
+   <p class="vevent">
+   Duration
+   {% if project.start_date %}
+    <abbr class="dtstart" title="{{project.start_date}}">{{project.start_date|date:"m/d/y" }}</abbr>&ndash;
+    <abbr class="dtend" title="{{project.start_date}}">Present</abbr>
+   {% endif %}
+  </p>
 {% endif %}

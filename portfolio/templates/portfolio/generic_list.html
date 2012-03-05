@@ -1,13 +1,9 @@
 {% extends "portfolio/base.html" %}
 
-{% block content %}
-
-<div id="groups">
-{% block groups %}{% endblock %}
-</div>
-
-<div id="projects">
+{% block article %}
 {% block projects %}{% endblock %}
-</div>
+{% endblock %}
 
+{% block aside %}
+{% block groups %}{% endblock %}
 {% endblock %}

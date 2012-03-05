@@ -1,32 +1,43 @@
 {% load portfolio %}
+{% load markup %}
+{% load thumbnail %}
+
 <div id="project">
+
+  <h2>
+      <a href="{% if project.url %}{{ project.url }}{% else %}#{% endif %}">
+      {{ project.title}}</a>
+  </h2>
   {% include "portfolio/dates_fragment.html" %}
-  <h2 class="name">{{ project.name }}</h2>
-
-  {% if project.url %}
-  <h3 class="url"><a href="{{ project.url }}">{{ project.url }}</a></h3>
-  {% endif %}
-  <ul class="skills">
-    {% for skill in project.skills.all %}
-    <li><a href="{% url skill_detail skill.slug %}">{{ skill }}</a></li>
+  <p>
+    {% for feature in project.features.all %}
+      <span class="white label"><a href="{% url feature_detail feature.slug %}">{{ feature}}</a></span>
     {% endfor %}
-  </ul>
-
-
-
-  {% if project.pull_quote %}
-  <p class="pull-quote">
-  {{ project.pull_quote }}
   </p>
+
+
+
+   {% with project.images.all as images %}
+  {% if images %}
+     <div id="slides"> 
+    {% for i in images %}
+	   <img src="{{i.image_path.url}}" alt="{{i.caption}}" data-caption="#{{i.slug}}">
+	{% endfor %}
+	{% for i in images %}
+	   <span class="orbit-caption" id="{{i.slug}}">{{i.caption}}</span>
+	{% endfor %}
+    </div>
   {% endif %}
+  {% endwith %}
+
   
 
 
   <div id="description">
-  {{ project.description|safe }}
+  {{ project.description|markdown|safe}}
   </div>
 
-  {% with project.projectfile_set.all as files %}
+  {% with project.files.all as files %}
   {% if files %}
   <ol id="files">
     {% for file in files %}
@@ -36,19 +47,12 @@
   {% endif %}
   {% endwith %}
 
-  {% with project.projectimage_set.all as images %}
-  {% if images %}
-  <ul id="images">
-    {% for image in images %}
-    <li>
-    <p class="image-description">{{ image.desc }}</p>
-    <img src="{{ image.image.url }}" alt="{{ image.image.name|split:"/"|last }}" title="{{ image.image.name|split:"/"|last }}">
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {% endwith %}
-
+ 
 </div>
+<script type="text/javascript">
+     $(window).load(function() {
+         $('#slides').orbit();
+     });
+</script>
 
 

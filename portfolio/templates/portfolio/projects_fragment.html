@@ -1,25 +1,16 @@
 {% load portfolio %}
-<ul id="projects">
+{% load markup %}
+{% load thumbnail %}
+<ul class="block-grid two-up display-grid" style="height:290px">
   {% for project in projects.all %}
-  <li class="project">
-  {% include "portfolio/dates_fragment.html" %}
-  <h2><a href="{% url project_detail project.slug %}">{{ project }}</a></h2>
-  <ul class="skills">
-    {% for skill in project.skills.all %}
-    <li><a href="{% url skill_detail skill.slug %}">{{ skill }}</a></li>
-    {% endfor %}
-  </ul>
-  {{ project.short_description|safe }}
-
-  {% with project.projectimage_set.all as images %}
-  {% if images %}
-  {% with images.0 as image %}  
-  <img src="{{ image.image.url }}" alt="{{ image.image.name|split:"/"|last }}" title="{{ image.image.name|split:"/"|last }}">
-  {% endwith %}
-  {% endif %}
-  {% endwith %}
-
+  <li>
+  <a href="{% url project_detail project.slug %}">
+   {% thumbnail project.images.all.0.image_path "290"  as im %}
+      <img src="{{im.url}}" alt="{{project.title}}">
+   {% endthumbnail %}
+   <h4>{{project.title}}</h4>
+   </a>
   </li>
+  
   {% endfor %}
 </ul>
-
