@@ -1,5 +1,6 @@
 from django.contrib import admin
-from portfolio.models import Project,Company,Feature,Category,ProjectFile,ProjectImage,Recommendation
+from portfolio.models import Project,Company,Feature,Category,ProjectFile,ProjectImage,\
+     Recommendation,ProjectVideo
 
 class ReccomendationInline(admin.TabularInline):
     model=Recommendation
@@ -8,16 +9,17 @@ class ImageInline(admin.TabularInline):
     model=ProjectImage
 class FileInline(admin.TabularInline):
     model=ProjectFile
-       
+class VideoInline(admin.TabularInline):
+    model=ProjectVideo    
 
   
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields={"slug": ("title",)}
     inlines = [
-           ImageInline,
            ReccomendationInline,
-           FileInline,
-           
+           ImageInline,
+           VideoInline,
+           FileInline, 
         ]
 
 class CompanyAdmin(admin.ModelAdmin):

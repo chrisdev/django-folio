@@ -38,36 +38,53 @@ class Project(models.Model):
         return ('portfolio.views.project_detail', (), {'slug': str(self.slug), })
         
 class ProjectImage(models.Model):
-    project = models.ForeignKey('Project',related_name="project_images")
-    image_path = models.ImageField(upload_to="project_image/%Y/%m/%d")
+    project = models.ForeignKey('Project',related_name="images")
+    image_path = models.ImageField(upload_to="portfolio/image/%Y/%m/%d")
     slug = models.SlugField(_('slug'),max_length=50,blank=True)
     caption=models.CharField(max_length=120,blank=True)
     timestamp = models.DateTimeField(default=datetime.now, editable=False)
-    url = models.CharField(blank=True,max_length=150)
+    url = models.CharField(blank=True,max_length=200)
     
    
 
     def __unicode__(self):
         if self.pk is not None:
-            return u"{{ %d }} %s" % (self.pk)
+            return u"{{ %d }}" % (self.pk)
         else:
             return "deleted image"
+        
+class ProjectVideo(models.Model):
+    """
+    Assumes that the videos are stored on hosting site such as youtube or vimeo
+    """
+    project = models.ForeignKey('Project',related_name='videos')
+    title=models.CharField(_("title"),max_length=100)
+    slug=models.SlugField(_('slug'),max_length=50,blank=True)
+    caption=models.CharField(_('caption'),max_length=120,blank=True)
+    url = models.CharField(blank=True,max_length=255)
+    def __unicode__(self):
+        if self.pk is not None:
+            return u"{{ %d }} %s" % (self.pk,self.title)
+        else:
+            return "deleted video"
             
+        
+    
 class ProjectFile(models.Model):
     project = models.ForeignKey('Project',related_name='files')
     slug=models.SlugField(_('slug'),max_length=50,blank=True)
     caption=models.CharField(_('caption'),max_length=120,blank=True)
-    file_path = models.FileField(upload_to="project_file/%Y/%m/%d")
+    file_path = models.FileField(upload_to="portfolio/file/%Y/%m/%d")
     timestamp = models.DateTimeField(default=datetime.now, editable=False)
-
+    
     def __unicode__(self):
         if self.pk is not None:
-             return u"{{ %d }} %s" % (self.pk,self.title)
+            return u"{{ %d }} " % (self.pk)
         else:
             return "deleted file"
 
     def get_absolute_url(self):
-        return self.file.url        
+        return self.file_path.url        
 
 class Feature(models.Model):
     title = models.CharField(_('title'),max_length=200)
