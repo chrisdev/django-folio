@@ -4,7 +4,7 @@ from models import Project, Skill, Category
 def project_context():
     return {
         'category_list': Category.objects.all(),
-        'feature_list': Feature.objects.all(),
+        'skill_list': Skill.objects.all(),
         }
 
 def project_detail(request, slug, template_name='portfolio/project_detail.html', extra_context={}):
