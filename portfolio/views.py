@@ -1,5 +1,5 @@
 from django.views.generic.list_detail import object_detail, object_list
-from models import Project, Feature, Category
+from models import Project, Skill, Category
 
 def project_context():
     return {
