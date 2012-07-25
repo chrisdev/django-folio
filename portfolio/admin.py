@@ -2,9 +2,9 @@ from django.contrib import admin
 from portfolio.models import Project,Company,Skill,Category,File,Image,\
      Recommendation,Video
 
-class ReccomendationInline(admin.TabularInline):
+class ReccomendationInline(admin.StackedInline):
     model=Recommendation
-
+    exclude=('quotation_html',)
 class ImageInline(admin.TabularInline):
     model=Image
 class FileInline(admin.TabularInline):
@@ -12,9 +12,10 @@ class FileInline(admin.TabularInline):
     
 class VideoInline(admin.TabularInline):
     model=Video    
-  
+    
 class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields={"slug": ("title",)}
+    exclude=('summary_html','description_html')
     inlines = [
            ReccomendationInline,
            ImageInline,
