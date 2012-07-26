@@ -124,7 +124,7 @@ class Recommendation(models.Model):
     date=models.DateField(blank=True,null=True)
     
     def __unicode__(self):
-        return u" ".join(self.quotation.split()[:5])  
+        return u" ".join(self.quotation_txt.split()[:5])  
 
 
 
