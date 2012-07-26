@@ -1,5 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.functional import curry
+from portfolio.settings import PARSER
+from utils import load_path_attr
+import markdown
+
 from datetime import datetime
 
 
@@ -62,7 +68,16 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.title
-
+        
+    def save(self,**kwargs):
+        render_func = curry(load_path_attr(PARSER[0], **PARSER[1]))
+        
+            
+        self.summary_html = render_func(self.summary_txt)
+        self.description_html = render_func(self.description_txt)
+        
+        super(Project, self).save(**kwargs)
+        
     @models.permalink
     def get_absolute_url(self):
         return ('portfolio.views.project_detail', (), {'slug': str(self.slug), })

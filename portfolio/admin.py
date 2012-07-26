@@ -1,7 +1,11 @@
 from django.contrib import admin
 from portfolio.models import Project,Company,Skill,Category,File,Image,\
      Recommendation,Video
-
+try:
+  from markitup.widgets import AdminMarkItUpWidget as content_widget
+except ImportError:
+   content_widget=forms.Textarea
+   
 class ReccomendationInline(admin.StackedInline):
     model=Recommendation
     exclude=('quotation_html',)
@@ -22,7 +26,11 @@ class ProjectAdmin(admin.ModelAdmin):
            VideoInline,
            FileInline, 
         ]
-
+    def formfield_for_dbfield(self, db_field, **kwargs):
+		if db_field.name in ('summary_txt','description_txt'):
+			kwargs['widget'] = content_widget()
+		return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+		
 class CompanyAdmin(admin.ModelAdmin):
     prepopulated_fields={"slug": ("title",)}
 
