@@ -17,10 +17,10 @@ VERSION = __import__(PACKAGE).__version__
 
 setup(
     name=NAME,
-    version=VERSION,,
+    version=VERSION,
     description=DESCRIPTION,
     author=AUTHOR,
-    packages=find_packages()
+    packages=find_packages(),
     classifiers=[
         'Development Status :: 1  - Alpha',
         'Environment :: Web Environment',
