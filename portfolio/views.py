@@ -41,7 +41,7 @@ def category_list(request, template_name='portfolio/category_list.html', extra_c
         queryset = Category.objects.all(),
         )
 
-def feature_detail(request, slug, template_name='portfolio/feature_detail.html', extra_context={}):
+def skill_detail(request, slug, template_name='portfolio/skill_detail.html', extra_context={}):
     extra = project_context()
     extra.update(extra_context)
     return object_detail(
@@ -50,5 +50,5 @@ def feature_detail(request, slug, template_name='portfolio/feature_detail.html',
         extra_context = extra,
         slug = slug,
         slug_field = 'slug',
-        queryset = Feature.objects.all(),
+        queryset = Skill.objects.all(),
         )
