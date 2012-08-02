@@ -31,7 +31,7 @@ class Skill(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('portfolio.views.feature_detail', (), {'slug': self.slug, })
+        return ('portfolio.views.skill_detail', (), {'slug': self.slug, })
 
 class Category(models.Model):
     title = models.CharField(_('title'),max_length=200)
