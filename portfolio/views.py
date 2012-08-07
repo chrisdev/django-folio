@@ -44,6 +44,7 @@ def category_list(request, template_name='portfolio/category_list.html', extra_c
 def skill_detail(request, slug, template_name='portfolio/skill_detail.html', extra_context={}):
     extra = project_context()
     extra.update(extra_context)
+    extra.update({"slug":slug})
     return object_detail(
         request,
         template_name = template_name,
