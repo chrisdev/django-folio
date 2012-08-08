@@ -10,7 +10,7 @@ def parse(text):
     Ok now the ids
     ![Alt text 2][1]
     """
-    md = markdown.Markdown([''])
+    md = markdown.Markdown(['codehilite'])
     
     for iref in re.findall(img_ref_re,text):
         img_id=iref[7]
