@@ -7,8 +7,8 @@ def read(fname):
     return codecs.open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 PACKAGE = "portfolio"
-NAME = "django-portfolio"
-DESCRIPTION = "A reusable Django app for displaying a portfolio"
+NAME = "django-folio"
+DESCRIPTION = "A reusable Django app for displaying a portfolio of your work"
 AUTHOR = "Chris Clarke"
 AUTHOR_EMAIL = "cclarke@chrisdev.com"
 URL = "http://github.com/chrisdev/django-folio"
@@ -19,7 +19,10 @@ setup(
     name=NAME,
     version=VERSION,
     description=DESCRIPTION,
+    long_description=read('README.rst'),
     author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
+    url=URL,
     packages=find_packages(),
     classifiers=[
         'Development Status :: 1  - Alpha',
